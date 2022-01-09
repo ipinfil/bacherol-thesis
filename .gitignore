@@ -1,0 +1,8 @@
+web/*
+*.h5
+*.jpg
+*.png
+*.jpeg
+doc/*
+venv/
+.DS_STORE
