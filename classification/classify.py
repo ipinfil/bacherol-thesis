@@ -6,8 +6,9 @@ import numpy as np
 import argparse
 import json
 from pathlib import Path
+from time import time
 
-IMAGE_SIZE = (100, 100)
+IMAGE_SIZE = (100, 100) 
 
 
 def classify(image_path, model_path):
@@ -18,9 +19,13 @@ def classify(image_path, model_path):
     img_array = tf.expand_dims(img_array, 0)  # Create batch axis
     img_array = keras.applications.efficientnet.preprocess_input(img_array)
 
+    t = time()
     model = keras.models.load_model(model_path)
+    print("load_model: " + str(time() - t))
 
+    t = time()
     predictions = model.predict(img_array)
+    print("predict: " + str(time() - t))
 
     path = Path(__file__).parent.resolve()
     with open(path / "classes.json", "r") as f:
